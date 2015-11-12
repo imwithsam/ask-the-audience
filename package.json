@@ -1,0 +1,31 @@
+{
+  "name": "ask-the-audience",
+  "version": "1.0.0",
+  "description": "Real-time application using WebSockets. Somone can pose a question to the audience, and the audience can vote from one of four options.",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/imwithsam/ask-the-audience.git"
+  },
+  "keywords": [
+    "WebSockets",
+    "JavaScript",
+    "Node.js",
+    "Express"
+  ],
+  "author": "Samson Brock",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imwithsam/ask-the-audience/issues"
+  },
+  "homepage": "https://github.com/imwithsam/ask-the-audience#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "lodash": "^3.10.1",
+    "socket.io": "^1.3.7"
+  }
+}
