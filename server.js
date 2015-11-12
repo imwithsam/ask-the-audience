@@ -44,17 +44,35 @@ io.on('connection', function(socket) {
 
     // Delete vote when a user disconnects
     delete votes[socket.id];
+    socket.emit('voteCount', countVotes(votes));
     console.log('Votes: ', votes);
   });
 
   // Save vote to memory when one is cast
+  // Send vote count to each client
   socket.on('message', function(channel, message) {
     if (channel === 'voteCast') {
       votes[socket.id] = message;
+      socket.emit('voteCount', countVotes(votes));
       console.log('Votes: ', votes);
     }
   });
 });
+
+// TODO: Refactor using Lo-Dash
+// Keep track of vote counts
+function countVotes(votes) {
+var voteCount = {
+    A: 0,
+    B: 0,
+    C: 0,
+    D: 0
+};
+  for (vote in votes) {
+    voteCount[votes[vote]]++
+  }
+  return voteCount;
+}
 
 // Create public interface with npm's module system
 module.exports = server;

@@ -14,6 +14,11 @@ socket.on('usersConnected', function(count) {
   connectionCount.innerText = 'Connected Users: ' + count;
 });
 
+// Listen for emitted voteCount channel from server
+socket.on('voteCount', function(votes) {
+  console.log(votes);
+});
+
 // Add event listeners to all voting buttons
 var buttons = document.querySelectorAll('#choices button');
 
