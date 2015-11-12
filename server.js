@@ -26,6 +26,14 @@ const io = socketIo(server);
 io.on('connection', function(socket) {
   console.log('A user has connected.');
   console.log(io.engine.clientsCount + ' user(s) now connected.');
+  // Broadcast total connected user count to all users
+  io.sockets.emit('usersConnected', io.engine.clientsCount + ' user(s) now connected.');
+
+  socket.on('disconnect', function() {
+    console.log('A user has disconnected.');
+    // Broadcast total connected user count to all users
+    io.sockets.emit('usersConnected', io.engine.clientsCount + ' user(s) now connected.');
+  });
 });
 
 // Create public interface with npm's module system
