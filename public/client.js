@@ -13,3 +13,17 @@ socket.on('statusMessage', function(message) {
 socket.on('usersConnected', function(count) {
   connectionCount.innerText = 'Connected Users: ' + count;
 });
+
+// Listen for emitted voteCount channel from server
+socket.on('voteCount', function(votes) {
+  console.log(votes);
+});
+
+// Add event listeners to all voting buttons
+var buttons = document.querySelectorAll('#choices button');
+
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener('click', function () {
+    socket.send('voteCast', this.innerText);
+  });
+}
