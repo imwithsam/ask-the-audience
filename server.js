@@ -18,5 +18,9 @@ const server = http.createServer(app).listen(port, function() {
   console.log('Lisening on port ' + port + '.');
 });
 
+// Host WebSocket connections on http server
+const socketIo = require('socket.io');
+const io = socketIo(server);
+
 // Create public interface with npm's module system
 module.exports = server;
