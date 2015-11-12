@@ -2,6 +2,9 @@ const http = require('http');
 const express = require('express');
 const app = express();
 
+// Keep track of votes in memory
+var votes = {};
+
 // Have Express serve the 'public' directory
 app.use(express.static('public'));
 
@@ -35,12 +38,21 @@ io.on('connection', function(socket) {
 
   socket.on('disconnect', function() {
     console.log('A user has disconnected.');
+
     // Broadcast total connected user count to all users
     io.sockets.emit('usersConnected', io.engine.clientsCount + ' user(s) now connected.');
+
+    // Delete vote when a user disconnects
+    delete votes[socket.id];
+    console.log('Votes: ', votes);
   });
 
+  // Save vote to memory when one is cast
   socket.on('message', function(channel, message) {
-    console.log(channel, message);
+    if (channel === 'voteCast') {
+      votes[socket.id] = message;
+      console.log('Votes: ', votes);
+    }
   });
 });
 
