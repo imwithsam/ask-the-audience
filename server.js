@@ -22,5 +22,11 @@ const server = http.createServer(app).listen(port, function() {
 const socketIo = require('socket.io');
 const io = socketIo(server);
 
+// Set up event listener for the 'connection' event on the server
+io.on('connection', function(socket) {
+  console.log('A user has connected.');
+  console.log(io.engine.clientsCount + ' user(s) now connected.');
+});
+
 // Create public interface with npm's module system
 module.exports = server;
