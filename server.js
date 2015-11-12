@@ -38,6 +38,10 @@ io.on('connection', function(socket) {
     // Broadcast total connected user count to all users
     io.sockets.emit('usersConnected', io.engine.clientsCount + ' user(s) now connected.');
   });
+
+  socket.on('message', function(channel, message) {
+    console.log(channel, message);
+  });
 });
 
 // Create public interface with npm's module system
