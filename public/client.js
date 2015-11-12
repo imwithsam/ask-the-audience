@@ -3,6 +3,7 @@ var socket = io();
 
 var connectionCount = document.getElementById('connection-count');
 var statusMessage = document.getElementById('status-message');
+var voteCounts = document.getElementById('vote-counts');
 
 // Listen for emitted statusMessage channel from server
 socket.on('statusMessage', function(message) {
@@ -16,7 +17,13 @@ socket.on('usersConnected', function(count) {
 
 // Listen for emitted voteCount channel from server
 socket.on('voteCount', function(votes) {
-  console.log(votes);
+  var results = '';
+
+  for (var choice in votes) {
+    results = results + '<p>' + choice + ': ' + votes[choice] + '</p>';
+  };
+
+  voteCounts.innerHTML = results;
 });
 
 // Add event listeners to all voting buttons
